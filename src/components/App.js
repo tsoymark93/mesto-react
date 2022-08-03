@@ -141,10 +141,6 @@ function App() {
             isOpen={isImagePopupOpen}
             onClose={closeAllPopups}
         />
-
-    <template className="gallery-template">
-
-    </template>
 </div>
   );
 }
