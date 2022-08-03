@@ -1,6 +1,6 @@
 .popup__container {
     position: relative;
-    width: 282px;
+    min-width: 282px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +11,7 @@
 
 @media screen and (min-width: 640px) {
     .popup__container {
-        width: 430px;
+        min-width: 430px;
         align-items: start;
     }
     

@@ -1,6 +1,7 @@
 .profile__avatar-container {
     display: flex;
     position: relative;
+    justify-content: center;
 }
 
 .profile__avatar-container:hover::after {
