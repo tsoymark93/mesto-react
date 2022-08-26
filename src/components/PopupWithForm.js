@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupWithForm(props, children) {
+function PopupWithForm(props) {
     const classOpenPopup = `${props.isOpen && 'popup_opened'}`;
 
     return (
@@ -13,9 +13,9 @@ function PopupWithForm(props, children) {
                     aria-label="Закрыть"
                 ></button>
                 <h3 className="popup__title">{props.title}</h3>
-                <form name={props.formName} action="form" className="popup__form" method="post" noValidate>
+                <form name={props.formName} className="popup__form" noValidate onSubmit={props.onSubmit}>
                     <div>{props.children}</div>
-                    <button type="submit" className="popup__save-btn" aria-label="Сохранить" disabled>
+                    <button type="submit" className="popup__save-btn" aria-label="Сохранить">
                         {props.buttonText}
                     </button>
                 </form>
