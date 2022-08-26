@@ -108,19 +108,6 @@ function App() {
             });
     }
 
-    // function closeByEsc(e) {
-    //     if (e.key === 'Escape') {
-    //         closeAllPopups();
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     if (isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || isImagePopupOpen) {
-    //         document.addEventListener('keydown', closeByEsc);
-    //     }
-    //     return () => document.removeEventListener('keydown', closeByEsc);
-    // }, [isAddPlacePopupOpen, isEditAvatarPopupOpen, isEditProfilePopupOpen, isImagePopupOpen]);
-
     return (
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>
