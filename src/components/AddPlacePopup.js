@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useForm } from 'utils/hooks/useForm';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-    const [name, setName] = useState('');
-    const [link, setLink] = useState('');
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
+    const { values, setValues, handleChange } = useForm(['name', 'link']);
 
     useEffect(() => {
         if (isOpen) {
-            setName('');
-            setLink('');
+            setValues({ name: '', link: '' });
         }
-    }, [isOpen]);
-
-    function handleChangeName(e) {
-        setName(e.target.value);
-    }
-
-    function handleChangeLink(e) {
-        setLink(e.target.value);
-    }
+    }, [setValues, isOpen]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        onAddPlace({
-            name: name,
-            link: link,
-        });
+        onAddPlace(values);
     }
 
     return (
@@ -34,23 +22,22 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
             title="Новое место"
             isOpen={isOpen}
             onClose={onClose}
-            buttonText="Сохранить"
-            formName="popupAddForm"
+            buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
             onSubmit={handleSubmit}
         >
             <input
                 type="text"
                 id="gallery-name"
                 placeholder="Название"
-                name="description"
+                name="name"
                 className="popup__input popup__input_gallery"
                 required
                 // @ts-ignore
                 minLength="2"
                 // @ts-ignore
                 maxLength="30"
-                value={name}
-                onChange={handleChangeName}
+                value={values.name}
+                onChange={handleChange}
             />
             <span className="popup__input-error gallery-name-error"></span>
             <input
@@ -60,8 +47,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                 name="link"
                 className="popup__input popup__input_link"
                 required
-                value={link}
-                onChange={handleChangeLink}
+                value={values.link}
+                onChange={handleChange}
             />
             <span className="popup__input-error gallery-link-error"></span>
         </PopupWithForm>

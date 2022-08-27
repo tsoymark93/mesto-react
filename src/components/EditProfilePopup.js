@@ -1,33 +1,22 @@
 import { CurrentUserContext } from 'contexts/CurrentUserContext';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useForm } from 'utils/hooks/useForm';
 import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
+    const { values, setValues, handleChange } = useForm(['name', 'about']);
 
     const currentUser = useContext(CurrentUserContext);
+
     useEffect(() => {
         if (isOpen && currentUser.name && currentUser.about) {
-            setName(currentUser.name);
-            setDescription(currentUser.about);
+            setValues({ name: currentUser.name, about: currentUser.about });
         }
-    }, [currentUser, isOpen]);
-
-    function handleChangeName(e) {
-        setName(e.target.value);
-    }
-
-    function handleChangeDescription(e) {
-        setDescription(e.target.value);
-    }
+    }, [currentUser, isOpen, setValues]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        onUpdateUser({
-            name,
-            about: description,
-        });
+        onUpdateUser(values);
     }
 
     return (
@@ -36,8 +25,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             title="Редактировать профиль"
             isOpen={isOpen}
             onClose={onClose}
-            buttonText="Сохранить"
-            formName="popupEditForm"
+            buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
             onSubmit={handleSubmit}
         >
             <input
@@ -51,23 +39,23 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 minLength="2"
                 // @ts-ignore
                 maxLength="40"
-                onChange={handleChangeName}
-                value={name}
+                onChange={handleChange}
+                value={values.name}
             />
             <span className="popup__input-error profile-name-error"></span>
             <input
                 type="text"
                 id="profile-profession"
                 placeholder="Профессия"
-                name="profession"
+                name="about"
                 className="popup__input popup__input_profession"
                 required
                 // @ts-ignore
                 minLength="2"
                 // @ts-ignore
                 maxLength="200"
-                onChange={handleChangeDescription}
-                value={description}
+                onChange={handleChange}
+                value={values.about}
             />
             <span className="popup__input-error profile-profession-error"></span>
         </PopupWithForm>

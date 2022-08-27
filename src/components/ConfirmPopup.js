@@ -1,12 +1,21 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function ConfirmPopup() {
+export default function ConfirmPopup({ isOpen, isLoading, onClose, onConfirmRemove }) {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        onConfirmRemove();
+    };
+
     return (
-        <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да">
-            <h3 className="popup__avatar-title">Вы уверены?</h3>
-        </PopupWithForm>
+        <PopupWithForm
+            name="confirm"
+            title="Вы уверены?"
+            buttonText={isLoading ? 'Подождите...' : 'Да'}
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={onSubmit}
+            children={undefined}
+        />
     );
 }
-
-export default ConfirmPopup;
