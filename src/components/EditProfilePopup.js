@@ -4,7 +4,7 @@ import { useForm } from 'utils/hooks/useForm';
 import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
-    const { values, setValues, handleChange } = useForm(['name', 'about']);
+    const { values, setValues, handleChange } = useForm({ name: '', about: '' });
 
     const currentUser = useContext(CurrentUserContext);
 

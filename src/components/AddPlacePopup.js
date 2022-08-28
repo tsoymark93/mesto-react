@@ -3,7 +3,7 @@ import { useForm } from 'utils/hooks/useForm';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
-    const { values, setValues, handleChange } = useForm(['name', 'link']);
+    const { values, setValues, handleChange } = useForm({ name: '', link: '' });
 
     useEffect(() => {
         if (isOpen) {
